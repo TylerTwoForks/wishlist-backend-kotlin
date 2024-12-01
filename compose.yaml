@@ -1,5 +1,5 @@
 services:
-  psql-db:
+  wishlist-psql:
     image: postgres
     restart: always
     environment:
