@@ -7,22 +7,15 @@ import org.springframework.stereotype.Service
 
 //import org.springframework.boot.autoconfigure.security.SecurityProperties
 @Service
-class UserService{
-
-    @Autowired
-    lateinit var userRepo:UserRepo
+class UserService(
+    var userRepo: UserRepo
+){
 
 
     fun createUser(firstName: String, lastName: String, email:String){
-        val newUser = User(firstName, lastName, email)
-//        newUser.firstName = firstName
-//        newUser.lastName = lastName
-//        newUser.email = email
-
-        userRepo.save(newUser)
-
-    //this is a sneaky way to use java reflection in Kotlin to get this done.
-    //val myU = AppUser::class.java.getConstructor().newInstance()
+        userRepo.save(
+            User(firstName, lastName, email)
+        )
     }
 
     fun createUser2(){

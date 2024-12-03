@@ -1,4 +1,4 @@
-package com.edmondsinc.wishlist.config
+package com.edmondsinc.wishlist.configs
 
 import com.edmondsinc.wishlist.models.User
 import com.edmondsinc.wishlist.repositories.UserRepo
@@ -11,9 +11,12 @@ import java.lang.Exception
 
 
 @Configuration
-class LoadDatabase(private val userRepo: UserRepo) {
+class LoadDatabase {
     private val log: Logger = LoggerFactory.getLogger(LoadDatabase::class.java)
 
+    /**
+     * just initializing the database with at least 2 users for testing purposes.
+     */
     @Bean
     fun initDatabase(userRepo: UserRepo) = CommandLineRunner{
         try {
