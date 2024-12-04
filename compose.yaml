@@ -1,10 +1,10 @@
 services:
-  wishlist-psql:
+  wishlist:
     image: postgres
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=P@ssw0rd
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=wishlist
     ports:
       - '5432:5432'

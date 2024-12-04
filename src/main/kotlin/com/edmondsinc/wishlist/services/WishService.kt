@@ -20,6 +20,10 @@ class WishService(
         return wishRepo.save(wish)
     }
 
+    fun deleteWish(id:Long){
+        return wishRepo.deleteById(id)
+    }
+
     fun reqToWish(req: WishReqDto, userId:Long): Wish{
         val user: Optional<User> = userRepo.findById(userId)
         if (user.isPresent) return Wish(req.name, req.description, req.url, req.image, req.price, req.quantity, req.ranking, user.get())

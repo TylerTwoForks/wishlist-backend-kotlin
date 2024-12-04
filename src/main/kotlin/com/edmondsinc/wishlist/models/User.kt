@@ -1,7 +1,10 @@
 package com.edmondsinc.wishlist.models
 
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 
 
@@ -11,18 +14,20 @@ class User(
     val firstName: String,
     val lastName: String,
     @Column(unique = true)
-    val email: String
+    val email: String,
+    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY, mappedBy = "user")
+    val wishes: List<Wish>?
 ) : AbstractEntity() { //extends AbstractEntity to obtain base items: id, guid, and createdDate
 
     override fun toString(): String {
-        return "User(id='$id', guid='$guid', createdAt='$createdAt' firstName='$firstName', lastName='$lastName', email='$email')"
+        return "User(id='$id', guid='$guid', createdAt='$createdAt' firstName='$firstName', lastName='$lastName', email='$email') \n " +
+                "Wishes(wishes='$wishes')"
     }
-    //#############################################//
-    //                  NOTES                      //
-    //#############################################//
-//#region
-    /*
-    Three ways to initialize a class.
+
+
+    /* NOTES Below */
+    /*Three ways to initialize a class.
+
         #1 in the constructor
             by using "val" in the constructor name, it's like doing #2 below.
 
@@ -36,7 +41,4 @@ class User(
                 lastName = _lastName
             }
      */
-//#endregion
-
-
 }

@@ -19,4 +19,7 @@ class Wish(
     val user: User
 ) : AbstractEntity() {
 
+    override fun toString(): String {
+        return "Wish(id='$id', guid='$guid', createdAt='$createdAt', name='$name', description=$description, url=$url, image=$image, price=$price, quantity=$quantity, ranking=$ranking, user=${user.id})"
+    }
 }
