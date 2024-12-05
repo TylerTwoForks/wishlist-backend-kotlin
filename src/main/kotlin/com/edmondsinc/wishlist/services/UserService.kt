@@ -5,6 +5,10 @@ import com.edmondsinc.wishlist.models.dtos.response.UserWishCombo
 import com.edmondsinc.wishlist.repositories.UserRepo
 import com.edmondsinc.wishlist.staticUtilities.userToDto
 import com.edmondsinc.wishlist.staticUtilities.wishBulkToDto
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,7 +21,15 @@ class UserService(
         return userAndWishes.map { uaw ->
             UserWishCombo(userToDto(uaw), wishBulkToDto(uaw.wishes))
         }
+    }
 
+    fun getAllUsers() : MutableIterable<User> {
+        return userRepo.findAll()
+    }
+
+    fun getAllUsersPaged(page:Int, size:Int): Page<User> {
+        val pageable = PageRequest.of(page, size).withSort(Sort.by(Sort.Direction.ASC, "id"))
+        return userRepo.findAll(pageable)
     }
 
     fun createUser(firstName: String, lastName: String, email:String){

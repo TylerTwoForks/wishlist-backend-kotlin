@@ -20,8 +20,13 @@ class LoadDatabase {
     @Bean
     fun initDatabase(userRepo: UserRepo) = CommandLineRunner{
         try {
-            log.info("Preloading: "+userRepo.save(User("Tyler", "Edmonds", "email1@gmail.com", null)))
-            log.info("Preloading: "+userRepo.save(User("Brittany", "Edmonds", "email2@gmail.com", null)))
+            for (i in 3..52) {
+                try{
+                    userRepo.save(User("FirstName$i", "LastName$i", "email$i@gmail.com", null))
+                }catch (e:Exception) {
+                    continue
+                }
+            }
         }catch (e:Exception){
             log.error(e.message)
         }

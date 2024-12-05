@@ -8,6 +8,8 @@ import com.edmondsinc.wishlist.services.UserService
 import com.edmondsinc.wishlist.staticUtilities.userBulkToDto
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -36,6 +38,12 @@ class UserController(
                 HttpStatus.INTERNAL_SERVER_ERROR
             )
         }
+    }
+
+    @GetMapping("/paged")
+    fun getAllUsersPaged(pageable:Pageable) : ResponseEntity<Page<User>> {
+        val users: Page<User> = userService.getAllUsersPaged(pageable.pageNumber, pageable.pageSize)
+        return ResponseEntity(users, HttpStatus.OK)
     }
 
     @GetMapping("/{id}/wishes")
